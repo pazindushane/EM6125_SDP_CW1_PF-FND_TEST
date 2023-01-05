@@ -1,0 +1,136 @@
+<div class="form-main-bg">
+  <div class="form-body ">
+    <div  class="form-header">
+      <div class="form-header-content">
+        <div class="form-header-title" >
+          <span >Manage All Tokens</span>
+        </div>
+        <form class="flex" [formGroup]="filterDetailsForm" (ngSubmit)="refreshTable()">
+          <!--          <div class="form-header-search form-header-label">-->
+          <!--            <label for="search-filed">-->
+          <!--              <mat-icon>search</mat-icon>-->
+          <!--            </label>-->
+          <!--            <input type="text" id="search-filed"  placeholder="Search" formControlName="searchKeyWord"-->
+          <!--                   (keydown)="search.next($event)">-->
+          <!--          </div>-->
+<!--          -->
+        </form>
+      </div>
+    </div>
+    <div>
+
+      <table class="form-table" mat-table [dataSource]="dataSource" matSort>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action" >
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef > Action</th>
+          <td mat-cell class="form-table-column" *matCellDef="let row">
+            <div id="buttons">
+              <button mat-mini-fab style="background: #2ecc71" class="me-2" (click)="AcceptToken(row)">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-mini-fab style="background: #3498db" class="me-2" (click)="DeliverToken(row)">
+                <mat-icon>local_shipping</mat-icon>
+              </button>
+              <button mat-mini-fab style="background: #e74c3c" class="me-2" (click)="CancelToken(row)" >
+                <mat-icon>close</mat-icon>
+              </button>
+
+            </div>
+          </td>
+
+        </ng-container>
+        <ng-container matColumnDef="tid">
+          <th mat-header-cell class="form-table-header " *matHeaderCellDef >tid</th>
+          <td mat-cell class="form-table-column" *matCellDef="let row" > {{(row.tid)}} </td>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.tid"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="vehicleRegNo">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >vehicleRegNo</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.vehicleRegNo"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Status</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.status"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="tokenExpDate">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >tokenExpDate</th>
+          <!--          <td mat-cell class="form-table-column" *matCellDef="let row"> {{row.brandDTO.brandName?row.brandDTO.brandName:''}} </td>-->
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.tokenExpDate"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="requestQuota">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >requestQuota</th>
+          <!--          <td mat-cell class="form-table-column" *matCellDef="let row"> {{row.categoryDTO.categoryName}} </td>-->
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.requestQuota"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="fillingTimeAndDate">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >fillingTimeAndDate</th>
+          <!--          <td mat-cell class="form-table-column" *matCellDef="let row"> {{row.unitTypeDTO.unitSymbol}} </td>-->
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.fillingTimeAndDate"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >username</th>
+          <!--          <td mat-cell class="form-table-column" *matCellDef="let row"> {{row.unitTypeDTO.unitSymbol}} </td>-->
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.usernameFk?.username"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <tr id="table" mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngStyle]="{'background-color': row.status==='INACTIVATED' ? '#ffc4c4' : '' }"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <!--        <tr class="mat-row" *matNoDataRow>-->
+        <!--          <td mat-cell class="form-table-column" colspan="4">No data matching""</td>-->
+        <!--        </tr>-->
+      </table>
+    </div>
+    <mat-toolbar class="mat-toolbar-table bg-skin-ternary text-skin-primary rounded-full">
+      <mat-toolbar-row class="bg-skin-ternary text-skin-primary rounded">
+        <label >page :</label>
+        <input [value]="paginator.pageIndex+1" #page (keyup.enter)="pageNavigate(page.value)"
+               class="bg-skin-ternary text-skin-primary">
+        <label >/{{pageCount}}</label>
+        <span id="spacer"></span>
+        <mat-paginator class="bg-skin-ternary text-skin-primary"  #paginator [pageSizeOptions]="pageSizeOptions"  (page)="tempPageEvent=getServerData($event)"
+                       showFirstLastButtons ></mat-paginator>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

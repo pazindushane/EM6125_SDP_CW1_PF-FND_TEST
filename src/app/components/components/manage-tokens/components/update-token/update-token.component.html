@@ -1,0 +1,102 @@
+<div class="alert-body">
+  <div class="alert-header mat-elevation-z1">
+    <div></div>
+    <div class="alert-header-title ">
+      <span>Update Token Status</span>
+    </div>
+    <div></div>
+  </div>
+
+  <form #form [formGroup]="itemDetailsForm">
+    <div id="forms">
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+        <mat-form-field appearance="outline">
+          <mat-label>tid</mat-label>
+          <input  matInput formControlName="tid" placeholder="tid">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>vehicleRegNo</mat-label>
+          <input formControlName="vehicleRegNo" matInput placeholder="vehicleRegNo">
+        </mat-form-field>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>status</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>tokenExpDate</mat-label>
+          <input  matInput formControlName="tokenExpDate" placeholder="tokenExpDate">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>requestQuota</mat-label>
+          <input  matInput formControlName="requestQuota" placeholder="requestQuota">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>fillingTimeAndDate</mat-label>
+          <input  matInput formControlName="fillingTimeAndDate" placeholder="fillingTimeAndDate">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>username</mat-label>
+          <input  matInput formControlName="username" placeholder="username">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+
+    </div>
+    <div class="form-row"></div>
+
+    <div id="bottom-side">
+      <div id="pics">
+      </div>
+      <div id="buttons">
+        <button mat-raised-button id="cancelbtn" type="button" (click)="btnCancel()">Cancel</button>
+        <button id="savebtn" mat-raised-button type="submit" (click)="approveDialogError4()" *ngIf="!apiResponse">Save
+        </button>
+        <button mat-raised-button id="spinner" [class.spinner]="apiResponse" *ngIf="apiResponse"></button>
+      </div>
+    </div>
+
+  </form>
+</div>

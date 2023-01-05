@@ -1,0 +1,62 @@
+<div class="alert-body">
+  <div class="alert-header mat-elevation-z1">
+    <div></div>
+    <div class="alert-header-title ">
+      <span>Update Audit</span>
+    </div>
+    <div></div>
+  </div>
+
+  <form #form [formGroup]="itemDetailsForm">
+    <div id="forms">
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+        <mat-form-field appearance="outline">
+          <mat-label>aids</mat-label>
+          <input  matInput formControlName="aids" placeholder="aids">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>dates</mat-label>
+          <input formControlName="dates" matInput placeholder="dates">
+        </mat-form-field>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>functions</mat-label>
+          <input  matInput formControlName="functions" placeholder="functions">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>messages</mat-label>
+          <input  matInput formControlName="messages" placeholder="messages">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+
+    </div>
+    <div class="form-row"></div>
+
+    <div id="bottom-side">
+      <div id="pics">
+      </div>
+      <div id="buttons">
+        <button mat-raised-button id="cancelbtn" type="button" (click)="btnCancel()">Cancel</button>
+        <button id="savebtn" mat-raised-button type="submit" (click)="approveDialogError4()" *ngIf="!apiResponse">Save
+        </button>
+        <button mat-raised-button id="spinner" [class.spinner]="apiResponse" *ngIf="apiResponse"></button>
+      </div>
+    </div>
+
+  </form>
+</div>

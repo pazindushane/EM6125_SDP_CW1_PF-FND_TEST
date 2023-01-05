@@ -1,0 +1,112 @@
+<div class="alert-body">
+  <div class="alert-header mat-elevation-z1">
+    <div></div>
+    <div class="alert-header-title ">
+      <span>Update Station Status</span>
+    </div>
+    <div></div>
+  </div>
+
+  <form #form [formGroup]="itemDetailsForm">
+    <div id="forms">
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+        <mat-form-field appearance="outline">
+          <mat-label>fid</mat-label>
+          <input  matInput formControlName="fid" placeholder="fid">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>stationName</mat-label>
+          <input formControlName="stationName" matInput placeholder="stationName">
+        </mat-form-field>
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>city</mat-label>
+          <input formControlName="city" matInput placeholder="city">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>district</mat-label>
+          <input  matInput formControlName="district" placeholder="district">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>max_limit</mat-label>
+          <input  matInput formControlName="max_limit" placeholder="max_limit">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>available_limit</mat-label>
+          <input  matInput formControlName="available_limit" placeholder="available_limit">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>customer_requested_limit</mat-label>
+          <input  matInput formControlName="customer_requested_limit" placeholder="customer_requested_limit">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>status</mat-label>
+          <input  matInput formControlName="status" placeholder="status">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>station_requested_limit</mat-label>
+          <input  matInput formControlName="station_requested_limit" placeholder="station_requested_limit">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+
+
+    </div>
+    <div class="form-row"></div>
+
+    <div id="bottom-side">
+      <div id="pics">
+      </div>
+      <div id="buttons">
+        <button mat-raised-button id="cancelbtn" type="button" (click)="btnCancel()">Cancel</button>
+        <button id="savebtn" mat-raised-button type="submit" (click)="approveDialogError4()" *ngIf="!apiResponse">Save
+        </button>
+        <button mat-raised-button id="spinner" [class.spinner]="apiResponse" *ngIf="apiResponse"></button>
+      </div>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,119 @@
+<div class="form-main-bg">
+  <div class="form-body ">
+    <div class="form-header">
+      <div class="form-header-content">
+        <div class="form-header-title">
+          <span>Payment Management</span>
+        </div>
+        <form (ngSubmit)="refreshTable()" [formGroup]="filterDetailsForm" class="flex">
+<!--          <div class="form-header-filters form-header-label">-->
+<!--            <span>Filter by:&nbsp;</span>-->
+<!--            <mat-select #filterSelect (ngModelChange)="refreshTable()" formControlName="filter">-->
+<!--              <mat-option *ngFor="let filter of filters" [value]="filter.key">-->
+<!--                {{filter.value}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </div>-->
+<!--          <div class="form-header-filters form-header-label">-->
+<!--            <mat-select (ngModelChange)="refreshTable()" formControlName="stateFilter">-->
+<!--              <mat-option value="ACTIVATED">-->
+<!--                Active-->
+<!--              </mat-option>-->
+<!--              <mat-option value="INACTIVATED">-->
+<!--                InActive-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </div>-->
+        </form>
+      </div>
+    </div>
+    <div>
+
+      <table [dataSource]="dataSource" class="form-table" mat-table matSort>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th *matHeaderCellDef class="form-table-header" mat-header-cell> Action</th>
+          <td *matCellDef="let row" class="form-table-column" mat-cell>
+            <div id="buttons">
+              <button (click)="paymentDone(row)" style="background: #2ecc71" class="me-2" mat-mini-fab>
+                <mat-icon>done</mat-icon>
+              </button>
+              <button (click)="paymentPending(row)" style="background: #f1c40f" class="me-2" mat-mini-fab>
+                <mat-icon>hourglass_top</mat-icon>
+              </button>
+              <button (click)="paymentCancel(row)" style="background: #e74c3c" class="me-2" mat-mini-fab>
+                <mat-icon>close</mat-icon>
+              </button>
+
+            </div>
+          </td>
+
+        </ng-container>
+        <ng-container matColumnDef="pid">
+          <th *matHeaderCellDef class="form-table-header" mat-header-cell>pid</th>
+          <td *matCellDef="let row" class="form-table-column" mat-cell> {{(row?.pidFk?.pid)}} </td>
+          <td *matCellDef="let row"
+
+              [text]="row?.pidFk?.pid"
+              appHighlight
+              class="form-table-column"
+              classToApply="txt-highlight"
+              mat-cell></td>
+        </ng-container>
+
+        <ng-container matColumnDef="paymentDate">
+          <th *matHeaderCellDef class="form-table-header" mat-header-cell>paymentDate</th>
+          <td *matCellDef="let row"
+
+              [text]="row?.pidFk?.paymentDate"
+              appHighlight
+              class="form-table-column"
+              classToApply="txt-highlight"
+              mat-cell></td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="paymentStatus">
+          <th *matHeaderCellDef class="form-table-header" mat-header-cell>paymentStatus</th>
+          <td *matCellDef="let row"
+
+              [text]="row?.pidFk?.paymentStatus"
+              appHighlight
+              class="form-table-column"
+              classToApply="txt-highlight"
+              mat-cell></td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th *matHeaderCellDef class="form-table-header" mat-header-cell>price</th>
+          <td *matCellDef="let row"
+
+              [text]="row?.pidFk?.price"
+              appHighlight
+              class="form-table-column"
+              classToApply="txt-highlight"
+              mat-cell></td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns;sticky: true" id="table" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;"
+            [ngStyle]="{'background-color': row.status==='INACTIVATED' ? '#ffc4c4' : '' }"
+            mat-row></tr>
+
+      </table>
+    </div>
+    <mat-toolbar class="mat-toolbar-table bg-skin-ternary text-skin-primary rounded-full">
+      <mat-toolbar-row class="bg-skin-ternary text-skin-primary rounded">
+        <label>page :</label>
+        <input #page (keyup.enter)="pageNavigate(page.value)" [value]="paginator.pageIndex+1"
+               class="bg-skin-ternary text-skin-primary">
+        <label>/{{pageCount}}</label>
+        <span id="spacer"></span>
+        <mat-paginator #paginator (page)="tempPageEvent=getServerData($event)" [pageSizeOptions]="pageSizeOptions"
+                       class="bg-skin-ternary text-skin-primary"
+                       showFirstLastButtons></mat-paginator>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="form-main-bg">
+  <div class="form-body ">
+    <div  class="form-header">
+      <div class="form-header-content">
+        <div class="form-header-title" >
+          <span >Manage All Customers</span>
+        </div>
+        <form class="flex" [formGroup]="filterDetailsForm" (ngSubmit)="refreshTable()">
+<!--          <div class="form-header-filters form-header-label">-->
+<!--            <span>Filter by:&nbsp;</span>-->
+<!--            <mat-select formControlName="filter" (ngModelChange)="refreshTable()" #filterSelect>-->
+<!--              <mat-option *ngFor="let filter of filters" [value]="filter.key">-->
+<!--                {{filter.value}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </div>-->
+<!--          <div class="form-header-filters form-header-label" >-->
+<!--            <mat-select formControlName="stateFilter" (ngModelChange)="refreshTable()" >-->
+<!--              <mat-option value="ACTIVATED">-->
+<!--                Active-->
+<!--              </mat-option>-->
+<!--              <mat-option value="INACTIVATED">-->
+<!--                InActive-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </div>-->
+        </form>
+      </div>
+    </div>
+    <div>
+
+      <table class="form-table" mat-table [dataSource]="dataSource" matSort>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action" >
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef > Action</th>
+          <td mat-cell class="form-table-column" *matCellDef="let row">
+            <div id="buttons">
+              <button mat-mini-fab color="primary" (click)="updateCustomer(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="deleteCustomer(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+            </div>
+          </td>
+
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >User Name</th>
+          <td mat-cell class="form-table-column" *matCellDef="let row" > {{(row.username)}} </td>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.username"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="password">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Password</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.password"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Status</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.status"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNo">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Contact</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.phoneNo"
+              classToApply="txt-highlight"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="idPhoto">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >idPhoto</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.idPhoto"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Email</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.email"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell class="form-table-header" *matHeaderCellDef >Name</th>
+          <td mat-cell *matCellDef="let row" class="form-table-column"
+              appHighlight
+
+              [text]="row?.name"
+              classToApply="txt-highlight"></td>
+
+        </ng-container>
+
+        <tr id="table" mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngStyle]="{'background-color': row.status==='INACTIVATED' ? '#ffc4c4' : '' }"></tr>
+
+      </table>
+    </div>
+    <mat-toolbar class="mat-toolbar-table bg-skin-ternary text-skin-primary rounded-full">
+      <mat-toolbar-row class="bg-skin-ternary text-skin-primary rounded">
+        <label >page :</label>
+        <input [value]="paginator.pageIndex+1" #page (keyup.enter)="pageNavigate(page.value)"
+               class="bg-skin-ternary text-skin-primary">
+        <label >/{{pageCount}}</label>
+        <span id="spacer"></span>
+        <mat-paginator class="bg-skin-ternary text-skin-primary"  #paginator [pageSizeOptions]="pageSizeOptions"  (page)="tempPageEvent=getServerData($event)"
+                       showFirstLastButtons ></mat-paginator>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

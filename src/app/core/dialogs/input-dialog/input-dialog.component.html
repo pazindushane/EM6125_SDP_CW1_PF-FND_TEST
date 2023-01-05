@@ -1,0 +1,17 @@
+<div class="w-full h-full flex flex-col items-center p-2.5 bg-skin-form">
+  <div class="w-full h-1/6 text-center text-2xl p-2 text-skin-primary rounded-md" [ngClass]="headerStyle">{{title}}</div>
+  <div class=" form-column pt-9 pb-4 ">
+    <mat-form-field appearance="outline" class="w-5/6" >
+      <mat-label>{{fieldTxtOne}}</mat-label>
+      <input matInput [(ngModel)]="inputDataOne" placeholder="Type Here...." [type]="fieldTxtOneType">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-5/6" *ngIf="fieldTxtTwo" >
+      <mat-label>{{fieldTxtTwo}}</mat-label>
+      <input matInput [(ngModel)]="inputDataTwo" placeholder="Type Here...." [type]="fieldTxtTwoType">
+    </mat-form-field>
+  </div>
+  <div class="w-full  flex justify-end">
+    <button mat-raised-button id="btnNo" class="right-2.5"  color="warn" (click)="onDismiss() " >{{btnUnaccepted}}</button>
+    <button mat-raised-button id="btnYes" color="primary" (click)="onConfirm()">{{btnAccept}}</button>
+  </div>
+</div>

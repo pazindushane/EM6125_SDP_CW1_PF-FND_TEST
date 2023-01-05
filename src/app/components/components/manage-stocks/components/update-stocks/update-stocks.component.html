@@ -1,0 +1,75 @@
+<div class="alert-body">
+  <div class="alert-header mat-elevation-z1">
+    <div></div>
+    <div class="alert-header-title ">
+      <span>Update Stocks</span>
+    </div>
+    <div></div>
+  </div>
+
+  <form #form [formGroup]="itemDetailsForm">
+    <div id="forms">
+
+      <div class="form-row">
+        <div></div>
+        <div></div>
+        <mat-form-field appearance="outline">
+          <mat-label>mfs_id</mat-label>
+          <input  matInput formControlName="mfs_id" placeholder="mfs_id">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>status</mat-label>
+          <input formControlName="status" matInput placeholder="status">
+        </mat-form-field>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>available_limit</mat-label>
+          <input formControlName="available_limit" matInput placeholder="available_limit">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>requested_limit</mat-label>
+          <input  matInput formControlName="requested_limit" placeholder="requested_limit">
+        </mat-form-field>
+
+        <div></div>
+        <div></div>
+      </div>
+      <div class="form-row">
+        <div></div>
+        <div></div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>main_stock</mat-label>
+          <input  matInput formControlName="main_stock" placeholder="main_stock">
+        </mat-form-field>
+
+
+        <div></div>
+        <div></div>
+      </div>
+
+
+    </div>
+    <div class="form-row"></div>
+
+    <div id="bottom-side">
+      <div id="pics">
+      </div>
+      <div id="buttons">
+        <button mat-raised-button id="cancelbtn" type="button" (click)="btnCancel()">Cancel</button>
+        <button id="savebtn" mat-raised-button type="submit" (click)="approveDialogError()" *ngIf="!apiResponse">Save
+        </button>
+        <button mat-raised-button id="spinner" [class.spinner]="apiResponse" *ngIf="apiResponse"></button>
+      </div>
+    </div>
+
+  </form>
+</div>
