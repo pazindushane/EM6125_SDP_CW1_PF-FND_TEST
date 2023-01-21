@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomerService} from "../service/customer.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {DatePipe} from "@angular/common";
@@ -7,12 +7,15 @@ import {MatTableDataSource} from "@angular/material/table";
 import {SystemConfig} from "../../../core/util/SystemConfig";
 import {Filter} from "../../../core/models/Filter";
 import {componentDTO} from "../dto/componentDTO";
-import {debounceTime, distinctUntilChanged, Subject, Subscription, timeout} from "rxjs";
+import {debounceTime, distinctUntilChanged, map, Observable, startWith, Subject, Subscription, timeout} from "rxjs";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {UpdateTokenComponent} from "../manage-tokens/components/update-token/update-token.component";
 import {UpdateStocksComponent} from "./components/update-stocks/update-stocks.component";
 import {StocksService} from "../service/stocks.service";
+import {ApprovalDialogComponent} from "../../../core/dialogs/approval-dialog/approval-dialog.component";
+import {ApprovalDialogConfig} from "../../../core/dialogs/approval-dialog/model/ApprovalDialogConfig";
+import {MainFuelStockDTO} from "../dto/MainFuelStockDTO";
 
 @Component({
   selector: 'app-manage-stocks',
@@ -25,7 +28,7 @@ export class ManageStocksComponent implements OnInit {
     private formBuilder: FormBuilder,
     private stocksService: StocksService,
     private dialog: MatDialog,
-    // private batchService: BatchService,
+    // private batchService: StocksService,
     public datepipe: DatePipe,
   ) {
     this.dataSource = new MatTableDataSource(this.items);
@@ -40,7 +43,7 @@ export class ManageStocksComponent implements OnInit {
     key: 'ADDRESS', value: 'Address'}, {key: 'ID', value: 'ID'}, {key: 'MOBILE', value: 'Mobile Number'}, {key: 'LAND',
     value: 'Land Number'}];
   items!: Array<componentDTO>[];
-  displayedColumns: string[] = ['action', 'mfs_id', 'status', 'available_limit', 'requested_limit', 'main_stock'];
+  displayedColumns: string[] = ['mfs_id', 'status', 'available_limit', 'requested_limit', 'main_stock'];
   dataSource: MatTableDataSource<Array<componentDTO>>;
   private allItemSub!: Subscription;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -50,6 +53,12 @@ export class ManageStocksComponent implements OnInit {
   search = new Subject();
   searchedWords!: string[];
   systemConfig = SystemConfig;
+  itemDetailsForm!: FormGroup;
+  apiResponse!: boolean;
+  stockDetailsForm!: FormGroup;
+  myControl = new FormControl('');
+  options: string[] = ['AVAILABLE', 'FINISHED'];
+  filteredOptions!: Observable<string[]>;
 
   ngOnDestroy(): void {
     this.allItemSub.unsubscribe();
@@ -70,11 +79,37 @@ export class ManageStocksComponent implements OnInit {
         this.searchedWords = this.filterDetailsForm.get('searchKeyWord')?.value.trim().split(' ');
         this.refreshTable();
       });
+    this.stockDetailsForm = new FormGroup({
+      status: new FormControl('', [
+        Validators.required
+      ]),
+      available_limit: new FormControl('', [
+        Validators.required
+      ]),
+      requested_limit: new FormControl('', [
+        Validators.required
+      ]),
+      main_stock: new FormControl('', [
+        Validators.required
+      ])
+    });
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
   }
 
   ngAfterViewInit(): void {
     this.refreshTable();
   }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
   pageNavigate(value: string): void {
     this.paginator.pageIndex = Number(value) - 1;
     this.paginator.page.next({
@@ -183,4 +218,46 @@ export class ManageStocksComponent implements OnInit {
     // });
   }
 
+  btnCancel(): void {
+    // this.dialogRef.close();
+  }
+
+  approveDialogError(){
+    this.dialog.open(ApprovalDialogComponent, {
+      width: '350px',
+      // height: '200px',
+      data: new ApprovalDialogConfig('Alert', 'Warning!', 'Invalid Value')
+    });
+  }
+
+  saveStock() {
+    this.stocksService.saveStocks(new MainFuelStockDTO(
+      "",
+      this.stockDetailsForm.get('status')?.value,
+      this.stockDetailsForm.get('available_limit')?.value,
+      this.stockDetailsForm.get('requested_limit')?.value,
+      this.stockDetailsForm.get('main_stock')?.value
+    )).subscribe(result => {
+      console.log("Stock Successfully Added")
+      console.log(result)
+      this.loadTable();
+      this.resetfields();
+      this.dialog.open(ApprovalDialogComponent, {
+        width: '350px',
+        // height: '200px',
+        data: new ApprovalDialogConfig('Fine', 'Successfull!', 'Stock Successfully Added')
+      });
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  resetfields(){
+    this.stockDetailsForm.setValue({
+      status:'',
+      available_limit:'',
+      requested_limit :'',
+      main_stock :''
+    })
+  }
 }

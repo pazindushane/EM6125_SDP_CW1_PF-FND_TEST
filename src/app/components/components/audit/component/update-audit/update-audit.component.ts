@@ -14,7 +14,7 @@ import {InputDialogConfig} from "../../../../../core/dialogs/input-dialog/model/
 export class UpdateAuditComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-              // private itemService: ItemService,
+
               public dialog: MatDialog,
               // private toastrService: ToastrService,
               // private brandService: BrandService,

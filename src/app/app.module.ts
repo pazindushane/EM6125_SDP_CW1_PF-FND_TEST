@@ -47,6 +47,7 @@ import { PaymentComponent } from './components/components/payment/payment.compon
 import { UpdatePaymentComponent } from './components/components/payment/component/update-payment/update-payment.component';
 import { UpdateAuditComponent } from './components/components/audit/component/update-audit/update-audit.component';
 import {CookieModule} from "ngx-cookie";
+import { EditUserComponent } from './components/components/manage-customers/components/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {CookieModule} from "ngx-cookie";
     AuditComponent,
     PaymentComponent,
     UpdatePaymentComponent,
-    UpdateAuditComponent
+    UpdateAuditComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

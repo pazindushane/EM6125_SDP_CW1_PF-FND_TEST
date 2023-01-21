@@ -36,20 +36,20 @@ export class LoginComponent implements OnInit {
         Validators.required
       ]),
     });
-    this.LoginForm = new FormGroup({
-      farmer_name: new FormControl('', [
-        Validators.required
-      ]),
-      farmer_contact: new FormControl('', [
-        Validators.required
-      ]),
-      status: new FormControl('', [
-        Validators.required
-      ]),
-      farmer_password: new FormControl('', [
-        Validators.required
-      ]),
-    })
+    // this.LoginForm = new FormGroup({
+    //   farmer_name: new FormControl('', [
+    //     Validators.required
+    //   ]),
+    //   farmer_contact: new FormControl('', [
+    //     Validators.required
+    //   ]),
+    //   status: new FormControl('', [
+    //     Validators.required
+    //   ]),
+    //   farmer_password: new FormControl('', [
+    //     Validators.required
+    //   ]),
+    // })
   }
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';

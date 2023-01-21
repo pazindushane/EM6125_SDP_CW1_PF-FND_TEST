@@ -31,21 +31,21 @@
 
       <table class="form-table" mat-table [dataSource]="dataSource" matSort>
         <!-- Action Column -->
-        <ng-container matColumnDef="action" >
-          <th mat-header-cell class="form-table-header" *matHeaderCellDef > Action</th>
-          <td mat-cell class="form-table-column" *matCellDef="let row">
-            <div id="buttons">
-              <button mat-mini-fab color="primary" (click)="updateCustomer(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab color="warn" (click)="deleteCustomer(row)">
-                <mat-icon>delete</mat-icon>
-              </button>
+<!--        <ng-container matColumnDef="action" >-->
+<!--          <th mat-header-cell class="form-table-header" *matHeaderCellDef > Action</th>-->
+<!--          <td mat-cell class="form-table-column" *matCellDef="let row">-->
+<!--            <div id="buttons">-->
+<!--              <button mat-mini-fab color="primary" (click)="updateCustomer(row)">-->
+<!--                <mat-icon>edit</mat-icon>-->
+<!--              </button>-->
+<!--              <button mat-mini-fab color="warn" (click)="deleteCustomer(row)">-->
+<!--                <mat-icon>delete</mat-icon>-->
+<!--              </button>-->
 
-            </div>
-          </td>
+<!--            </div>-->
+<!--          </td>-->
 
-        </ng-container>
+<!--        </ng-container>-->
         <ng-container matColumnDef="username">
           <th mat-header-cell class="form-table-header" *matHeaderCellDef >User Name</th>
           <td mat-cell class="form-table-column" *matCellDef="let row" > {{(row.username)}} </td>

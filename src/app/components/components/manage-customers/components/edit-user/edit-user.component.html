@@ -1,0 +1,85 @@
+<div class="alert-body">
+  <div class="alert-header mat-elevation-z1">
+    <div></div>
+    <div class="alert-header-title ">
+      <span>Edit User</span>
+    </div>
+    <div></div>
+  </div>
+
+  <form #form [formGroup]="itemDetailsForm">
+    <div id="forms">
+
+      <div class="form-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>username</mat-label>
+          <input  matInput formControlName="username" placeholder="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>password</mat-label>
+          <input formControlName="password" matInput placeholder="password">
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>status</mat-label>
+          <input formControlName="status" matInput placeholder="status">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>phoneNo</mat-label>
+          <input  matInput formControlName="phoneNo" placeholder="phoneNo">
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>idPhoto</mat-label>
+          <input  matInput formControlName="idPhoto" placeholder="idPhoto">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>email</mat-label>
+          <input  matInput formControlName="email" placeholder="email">
+        </mat-form-field>
+
+      </div>
+
+      <div class="form-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>name</mat-label>
+          <input  matInput formControlName="name" placeholder="name">
+        </mat-form-field>
+
+      </div>
+
+
+    </div>
+
+    <div class="form-row">
+
+
+
+    </div>
+
+    <div id="bottom-side">
+      <div id="pics">
+      </div>
+      <div id="buttons">
+        <button mat-raised-button id="cancelbtn" type="button" (click)="btnCancel()">Cancel</button>
+        <button id="savebtn" mat-raised-button type="submit" (click)="approveDialogError()" *ngIf="!apiResponse">Save
+        </button>
+        <button mat-raised-button id="spinner" [class.spinner]="apiResponse" *ngIf="apiResponse"></button>
+      </div>
+    </div>
+
+  </form>
+</div>

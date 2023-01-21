@@ -39,7 +39,7 @@ export class AuditComponent implements OnInit {
     key: 'ADDRESS', value: 'Address'}, {key: 'ID', value: 'ID'}, {key: 'MOBILE', value: 'Mobile Number'}, {key: 'LAND',
     value: 'Land Number'}];
   items!: Array<componentDTO>[];
-  displayedColumns: string[] = ['action', 'aids', 'dates', 'functions', 'messages'];
+  displayedColumns: string[] = ['aids', 'dates', 'functions', 'messages'];
   dataSource: MatTableDataSource<Array<componentDTO>>;
   private allItemSub!: Subscription;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

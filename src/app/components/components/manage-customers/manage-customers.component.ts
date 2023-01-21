@@ -38,7 +38,7 @@ export class ManageCustomersComponent implements OnInit {
     key: 'ADDRESS', value: 'Address'}, {key: 'ID', value: 'ID'}, {key: 'MOBILE', value: 'Mobile Number'}, {key: 'LAND',
     value: 'Land Number'}];
   items!: Array<componentDTO>[];
-  displayedColumns: string[] = ['action', 'username', 'password', 'status', 'phoneNo', 'idPhoto',
+  displayedColumns: string[] = ['username', 'password', 'status', 'phoneNo', 'idPhoto',
     'email','name'];
   dataSource: MatTableDataSource<Array<componentDTO>>;
   private allItemSub!: Subscription;

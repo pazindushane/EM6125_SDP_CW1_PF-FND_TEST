@@ -35,16 +35,16 @@
           <th mat-header-cell class="form-table-header" *matHeaderCellDef > Action</th>
           <td mat-cell class="form-table-column" *matCellDef="let row">
             <div id="buttons">
-              <button mat-mini-fab style="background: #3498db" class="me-2" (click)="updateCustomer(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab style="background: #e74c3c" class="me-2" (click)="deleteCustomer(row)">
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button mat-mini-fab style="background: #2ecc71" class="me-2" (click)="updateCustomer(row)">
+<!--              <button mat-mini-fab style="background: #3498db" class="me-2" (click)="updateCustomer(row)">-->
+<!--                <mat-icon>edit</mat-icon>-->
+<!--              </button>-->
+<!--              <button mat-mini-fab style="background: #e74c3c" class="me-2" (click)="deleteCustomer(row)">-->
+<!--                <mat-icon>delete</mat-icon>-->
+<!--              </button>-->
+              <button mat-mini-fab style="background: #2ecc71" class="me-2" (click)="ChaneAStation(row)">
                 <mat-icon>done</mat-icon>
               </button>
-              <button mat-mini-fab style="background: #e74c3c" class="me-2" (click)="deleteCustomer(row)">
+              <button mat-mini-fab style="background: #e74c3c" class="me-2" (click)="ChaneFStation(row)">
                 <mat-icon>close</mat-icon>
               </button>
 

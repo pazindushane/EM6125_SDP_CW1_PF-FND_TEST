@@ -13,6 +13,8 @@ import {MatSort} from "@angular/material/sort";
 import {StationsService} from "../service/stations.service";
 import {StationDTO} from "../dto/stationDTO";
 import {UpdateStationComponent} from "./components/update-station/update-station.component";
+import {ApprovalDialogComponent} from "../../../core/dialogs/approval-dialog/approval-dialog.component";
+import {ApprovalDialogConfig} from "../../../core/dialogs/approval-dialog/model/ApprovalDialogConfig";
 
 @Component({
   selector: 'app-manange-stations',
@@ -159,6 +161,46 @@ export class ManangeStationsComponent implements OnInit {
       this.refreshTable();
     });
 
+  }
+
+  ChaneFStation(row: any): void {
+    const approval = this.dialog.open(ApprovalDialogComponent, {
+      width: '350px',
+      data: new ApprovalDialogConfig('Confirm', 'Update As FINISHED !', 'Are you sure sir you want to Update Station Number ' + row.fid + ' ?')
+    });
+    approval.afterClosed().subscribe(approve => {
+      if (approve) {
+        console.log(row);
+        this.stationService.changeStatus("FINISHED")
+          .subscribe((result: any) => {
+            console.log("This is result")
+            console.log(result)
+            this.refreshTable();
+          }, error => {
+            console.log(error);
+          });
+      }
+    });
+  }
+
+  ChaneAStation(row: any): void {
+    const approval = this.dialog.open(ApprovalDialogComponent, {
+      width: '350px',
+      data: new ApprovalDialogConfig('Confirm', 'Update As AVAILABLE !', 'Are you sure sir you want to Update Station Number ' + row.fid + ' ?')
+    });
+    approval.afterClosed().subscribe(approve => {
+      if (approve) {
+        console.log(row);
+        this.stationService.changeStatus("AVAILABLE")
+          .subscribe((result: any) => {
+            console.log("This is result")
+            console.log(result)
+            this.refreshTable();
+          }, error => {
+            console.log(error);
+          });
+      }
+    });
   }
 
   newBatch(row: any): void {
